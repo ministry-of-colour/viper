@@ -288,7 +288,8 @@ func (v *Viper) WatchConfig() {
 	go func() {
 		watcher, err := fsnotify.NewWatcher()
 		if err != nil {
-			log.Fatal(err)
+			log.Print("Ignoring stupid fsnotify out of files error: ", err.Error())
+			return
 		}
 		defer watcher.Close()
 		// we have to watch the entire directory to pick up renames/atomic saves in a cross-platform way
